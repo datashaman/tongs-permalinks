@@ -1,0 +1,29 @@
+{
+    "name": "datashaman/tongs-permalinks",
+    "description": "Permalinks plugin for Tongs",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Marlin Forbes",
+            "email": "marlinf@datashaman.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+        "Datashaman\\Tongs\\Plugins\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+        "Datashaman\\Tongs\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "tongs": {
+            "plugins": {
+                "permalinks": "Datashaman\\Tongs\\Plugins\\PermalinksPlugin"
+            }
+        }
+    }
+}
