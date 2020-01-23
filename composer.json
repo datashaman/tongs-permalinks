@@ -26,5 +26,8 @@
                 "permalinks": "Datashaman\\Tongs\\Plugins\\PermalinksPlugin"
             }
         }
+    },
+    "require-dev": {
+        "datashaman/tongs": "^0.1.0"
     }
 }
