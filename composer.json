@@ -2,6 +2,7 @@
     "name": "datashaman/tongs-permalinks",
     "description": "Permalinks plugin for Tongs",
     "type": "library",
+    "license": "MIT",
     "authors": [
         {
             "name": "Marlin Forbes",
