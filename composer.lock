@@ -4,30 +4,32 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7c306571401198c2842fb02ca70198e4",
+    "content-hash": "deffcf3d9056d49db48c634ba2190334",
     "packages": [],
     "packages-dev": [
         {
             "name": "datashaman/tongs",
-            "version": "0.1.0",
+            "version": "0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/datashaman/tongs.git",
-                "reference": "e9ae7be62fba050c26c1df675eaece5d4abcd581"
+                "reference": "612b8a80b22ed39942bc9ac7f63797f1f4200984"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/datashaman/tongs/zipball/e9ae7be62fba050c26c1df675eaece5d4abcd581",
-                "reference": "e9ae7be62fba050c26c1df675eaece5d4abcd581",
+                "url": "https://api.github.com/repos/datashaman/tongs/zipball/612b8a80b22ed39942bc9ac7f63797f1f4200984",
+                "reference": "612b8a80b22ed39942bc9ac7f63797f1f4200984",
                 "shasum": ""
             },
             "require": {
+                "datashaman/tongs-permalinks": "dev-master",
                 "erusev/parsedown": "^1.7",
                 "illuminate/log": "^6.0",
                 "illuminate/pipeline": "^6.12",
                 "illuminate/view": "^6.12",
                 "laravel-zero/framework": "^6.0",
                 "php": "^7.2",
+                "symfony/filesystem": "^4.0",
                 "symfony/finder": "^4.3.4",
                 "symfony/process": "^4.3",
                 "webuni/front-matter": "^1.1"
@@ -74,7 +76,7 @@
                 "metalsmith",
                 "static site generator"
             ],
-            "time": "2020-01-23T20:44:17+00:00"
+            "time": "2020-01-24T10:36:14+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -1910,6 +1912,56 @@
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
             "time": "2020-01-08T17:29:02+00:00"
+        },
+        {
+            "name": "symfony/filesystem",
+            "version": "v4.4.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/filesystem.git",
+                "reference": "266c9540b475f26122b61ef8b23dd9198f5d1cfd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/266c9540b475f26122b61ef8b23dd9198f5d1cfd",
+                "reference": "266c9540b475f26122b61ef8b23dd9198f5d1cfd",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3",
+                "symfony/polyfill-ctype": "~1.8"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Filesystem\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Filesystem Component",
+            "homepage": "https://symfony.com",
+            "time": "2020-01-21T08:20:44+00:00"
         },
         {
             "name": "symfony/finder",

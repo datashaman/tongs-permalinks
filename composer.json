@@ -9,7 +9,8 @@
             "email": "marlinf@datashaman.com"
         }
     ],
-    "require": {},
+    "require": {
+    },
     "autoload": {
         "psr-4": {
         "Datashaman\\Tongs\\Plugins\\": "src/"
@@ -28,6 +29,6 @@
         }
     },
     "require-dev": {
-        "datashaman/tongs": "^0.1.0"
+        "datashaman/tongs": "^0.2"
     }
 }
