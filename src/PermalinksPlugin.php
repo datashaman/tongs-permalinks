@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Datashaman\Tongs\Plugins;
 
 use Datashaman\Tongs\Tongs;
+use DateTime;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
@@ -53,45 +54,45 @@ class PermalinksPlugin extends Plugin
     {
         $files
             ->each(
-                function ($data, $file) use (&$files) {
-                    if (!Str::endsWith($file, '.html')) {
+                function ($file, $path) use (&$files) {
+                    if (!Str::endsWith($path, '.html')) {
                         return;
                     }
 
-                    if (Arr::get($data, 'permalink') === false) {
+                    if (Arr::get($file, 'permalink') === false) {
                         return;
                     }
 
                     $linkset = array_merge(
-                        $this->findLinkset($data),
+                        $this->findLinkset($file),
                         $this->defaultLinkset
                     );
 
                     $ppath = $this->replace(
                         $linkset['pattern'],
-                        $data,
+                        $file,
                         $linkset
-                    ) ?: $this->resolve($file);
+                    ) ?: $this->resolve($path);
 
                     $fam = null;
 
                     switch ($linkset['relative']) {
                     case true:
-                        $fam = $this->family($file, $files->all());
+                        $fam = $this->family($path, $files->all());
                         break;
                     case 'folder':
-                        $fam = $this->folder($file, $files->all());
+                        $fam = $this->folder($path, $files->all());
                         break;
                     }
 
                     if (
-                        Arr::has($data, 'permalink')
-                        && $data['permalink'] !== false
+                        Arr::has($file, 'permalink')
+                        && $file['permalink'] !== false
                     ) {
-                        $ppath = $data['permalink'];
+                        $ppath = $file['permalink'];
                     }
 
-                    $out = $this->makeUnique()($ppath, $files, $file, $this->options);
+                    $out = $this->makeUnique()($ppath, $files, $path, $this->options);
 
                     $moved = [];
 
@@ -105,15 +106,15 @@ class PermalinksPlugin extends Plugin
                         }
                     }
 
-                    $data['path'] = $ppath === '.'
+                    $file['path'] = $ppath === '.'
                         ? ''
                         : str_replace('\\', '/', $ppath);
 
-                    $this->relink($data, $moved);
+                    $this->relink($file, $moved);
 
-                    unset($files[$file]);
+                    unset($files[$path]);
 
-                    $files[$out] = $data;
+                    $files[$out] = $file;
                 }
             );
 
@@ -130,13 +131,13 @@ class PermalinksPlugin extends Plugin
 
         $options = $options ?: [];
 
-        $options['date'] = $options['date'] ?: 'Y/m/d';
+        $options['date'] = $options['date'] ?? 'Y/m/d';
 
         if (!Arr::has($options, 'relative')) {
             $options['relative'] = true;
         }
 
-        $options['linksets'] = $options['linksets'] ?: [];
+        $options['linksets'] = $options['linksets'] ?? [];
 
         return $options;
     }
@@ -208,18 +209,19 @@ class PermalinksPlugin extends Plugin
 
     protected function resolve(string $str): string
     {
-        $base = File::basename($str, File::extension($str));
+        $extension = File::extension($str);
+        $name = File::name($str);
         $ret = File::dirname($str);
 
-        if ($base !== 'index') {
+        if ($name !== 'index') {
             $ret = preg_replace(
                 '/\\\/',
                 '/',
-                implode(DIRECTORY_SEPARATOR, [$ret, $base])
+                implode(DIRECTORY_SEPARATOR, [$ret, $name])
             );
         }
 
-        return $ret;
+        return $ret === '.' ? '/' : $ret;
     }
 
     protected function family(
