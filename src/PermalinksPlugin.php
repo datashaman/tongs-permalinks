@@ -112,8 +112,8 @@ class PermalinksPlugin extends Plugin
                     }
 
                     $file['path'] = $ppath === '.'
-                        ? ''
-                        : str_replace('\\', '/', $ppath);
+                        ? '/'
+                        : '/' . str_replace('\\', '/', $ppath);
 
                     $file = $this->relink($file, $moved);
 
