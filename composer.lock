@@ -4,25 +4,24 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "deffcf3d9056d49db48c634ba2190334",
+    "content-hash": "9bd435bcddc5dda82e43cc3090a2ec26",
     "packages": [],
     "packages-dev": [
         {
             "name": "datashaman/tongs",
-            "version": "0.2.0",
+            "version": "0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/datashaman/tongs.git",
-                "reference": "612b8a80b22ed39942bc9ac7f63797f1f4200984"
+                "reference": "c0fe770103395bcd8dfde54b540488d26d01da54"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/datashaman/tongs/zipball/612b8a80b22ed39942bc9ac7f63797f1f4200984",
-                "reference": "612b8a80b22ed39942bc9ac7f63797f1f4200984",
+                "url": "https://api.github.com/repos/datashaman/tongs/zipball/c0fe770103395bcd8dfde54b540488d26d01da54",
+                "reference": "c0fe770103395bcd8dfde54b540488d26d01da54",
                 "shasum": ""
             },
             "require": {
-                "datashaman/tongs-permalinks": "dev-master",
                 "erusev/parsedown": "^1.7",
                 "illuminate/log": "^6.0",
                 "illuminate/pipeline": "^6.12",
@@ -36,7 +35,6 @@
             },
             "require-dev": {
                 "mockery/mockery": "^1.0",
-                "nunomaduro/phpinsights": "^1.11",
                 "phpunit/phpunit": "^8.0"
             },
             "bin": [
@@ -50,6 +48,7 @@
                         "drafts": "Datashaman\\Tongs\\Plugins\\DraftsPlugin",
                         "markdown": "Datashaman\\Tongs\\Plugins\\MarkdownPlugin",
                         "sass": "Datashaman\\Tongs\\Plugins\\SassPlugin",
+                        "serve": "Datashaman\\Tongs\\Plugins\\ServePlugin",
                         "views": "Datashaman\\Tongs\\Plugins\\ViewsPlugin"
                     }
                 }
@@ -76,7 +75,7 @@
                 "metalsmith",
                 "static site generator"
             ],
-            "time": "2020-01-24T10:36:14+00:00"
+            "time": "2020-01-26T07:26:42+00:00"
         },
         {
             "name": "doctrine/inflector",

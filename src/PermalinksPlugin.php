@@ -29,11 +29,11 @@ class PermalinksPlugin extends Plugin
      */
     protected $dupes;
 
-    public function __construct(Tongs $tongs, $options = null)
+    public function __construct($options = null)
     {
         $options = $this->normalize($options);
 
-        parent::__construct($tongs, $options);
+        parent::__construct($options);
 
         $this->linksets = collect($options['linksets']);
 

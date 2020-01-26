@@ -29,6 +29,6 @@
         }
     },
     "require-dev": {
-        "datashaman/tongs": "^0.2"
+        "datashaman/tongs": "0.3.*"
     }
 }
