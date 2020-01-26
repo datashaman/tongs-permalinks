@@ -56,7 +56,7 @@ class PermalinksPlugin extends Plugin
         $files = $files
             ->mapWithKeys(
                 function ($file, $path) use (&$files) {
-                    if (!File::extension($path) === 'html') {
+                    if (File::extension($path) !== 'html') {
                         return [
                             $path => $file,
                         ];
