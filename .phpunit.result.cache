@@ -1,0 +1,1 @@
+C:37:"PHPUnit\Runner\DefaultTestResultCache":198:{a:2:{s:7:"defects";a:1:{s:63:"Datashaman\Tongs\Plugins\Tests\PermalinksPluginTest::testHandle";i:3;}s:5:"times";a:1:{s:63:"Datashaman\Tongs\Plugins\Tests\PermalinksPluginTest::testHandle";d:0.033;}}}

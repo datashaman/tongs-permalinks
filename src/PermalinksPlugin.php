@@ -56,7 +56,7 @@ class PermalinksPlugin extends Plugin
         $files = $files
             ->mapWithKeys(
                 function ($file, $path) use (&$files) {
-                    if (!Str::endsWith($path, '.html')) {
+                    if (!File::extension($path) === 'html') {
                         return [
                             $path => $file,
                         ];
@@ -111,7 +111,7 @@ class PermalinksPlugin extends Plugin
                         }
                     }
 
-                    $file['path'] = $ppath === '.'
+                    $file['path'] = $ppath === './'
                         ? '/'
                         : '/' . str_replace('\\', '/', $ppath);
 
@@ -217,15 +217,11 @@ class PermalinksPlugin extends Plugin
         $name = File::name($str);
         $ret = File::dirname($str);
 
-        if ($name !== 'index') {
-            $ret = preg_replace(
-                '/\\\/',
-                '/',
-                implode(DIRECTORY_SEPARATOR, [$ret, $name])
-            );
+        if ($ret === '.') {
+            return $name === 'index' ? '' : "$name/";
         }
 
-        return $ret === '.' ? '/' : $ret;
+        return $name === 'index' ? "$ret/" : "$ret$name/";
     }
 
     protected function family(
