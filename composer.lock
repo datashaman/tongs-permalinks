@@ -9,16 +9,16 @@
     "packages-dev": [
         {
             "name": "datashaman/tongs",
-            "version": "0.3.0",
+            "version": "0.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/datashaman/tongs.git",
-                "reference": "c0fe770103395bcd8dfde54b540488d26d01da54"
+                "reference": "dfa1f300015d680977664aab5cd0dfb11951db58"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/datashaman/tongs/zipball/c0fe770103395bcd8dfde54b540488d26d01da54",
-                "reference": "c0fe770103395bcd8dfde54b540488d26d01da54",
+                "url": "https://api.github.com/repos/datashaman/tongs/zipball/dfa1f300015d680977664aab5cd0dfb11951db58",
+                "reference": "dfa1f300015d680977664aab5cd0dfb11951db58",
                 "shasum": ""
             },
             "require": {
@@ -75,7 +75,7 @@
                 "metalsmith",
                 "static site generator"
             ],
-            "time": "2020-01-26T07:26:42+00:00"
+            "time": "2020-01-26T08:58:15+00:00"
         },
         {
             "name": "doctrine/inflector",
