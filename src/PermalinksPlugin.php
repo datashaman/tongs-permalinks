@@ -7,6 +7,7 @@ namespace Datashaman\Tongs\Plugins;
 use Datashaman\Tongs\Tongs;
 use DateTime;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
@@ -52,15 +53,19 @@ class PermalinksPlugin extends Plugin
 
     public function handle(Collection $files, callable $next): Collection
     {
-        $files
-            ->each(
+        $files = $files
+            ->mapWithKeys(
                 function ($file, $path) use (&$files) {
                     if (!Str::endsWith($path, '.html')) {
-                        return;
+                        return [
+                            $path => $file,
+                        ];
                     }
 
                     if (Arr::get($file, 'permalink') === false) {
-                        return;
+                        return [
+                            $path => $file,
+                        ];
                     }
 
                     $linkset = array_merge(
@@ -110,11 +115,11 @@ class PermalinksPlugin extends Plugin
                         ? ''
                         : str_replace('\\', '/', $ppath);
 
-                    $this->relink($file, $moved);
+                    $file = $this->relink($file, $moved);
 
-                    unset($files[$path]);
-
-                    $files[$out] = $file;
+                    return [
+                        $out => $file,
+                    ];
                 }
             );
 
@@ -209,7 +214,6 @@ class PermalinksPlugin extends Plugin
 
     protected function resolve(string $str): string
     {
-        $extension = File::extension($str);
         $name = File::name($str);
         $ret = File::dirname($str);
 
@@ -268,19 +272,13 @@ class PermalinksPlugin extends Plugin
         $filename,
         $opts
     ) {
-        $indexFile = Arr::get($opts, 'indexFile');
+        $indexFile = Arr::get($opts, 'indexFile', 'index.html');
         $target = null;
         $counter = 0;
         $postfix = '';
 
         do {
-            $target = implode(
-                DIRECTORY_SEPARATOR,
-                [
-                    "{$targetPath}${postfix}",
-                    $indexFile ?: 'index.html'
-                ]
-            );
+            $target = "${targetPath}{$postfix}{$indexFile}";
 
             if (Arr::get($this->options, 'duplicatesFail') && $files[$target]) {
                 throw new Exception("Permalinks: Clash with another target file {$target}");
@@ -289,14 +287,14 @@ class PermalinksPlugin extends Plugin
             $postfix = "-{++$counter}";
         } while (Arr::get($this->options, 'unique') && $files[$target]);
 
-        return $target;
+        return ltrim($target, '/');
     }
 
     protected function relink(
-        array &$data,
+        array $file,
         array $moved
-    ) {
-        $content = $data['contents'];
+    ): array {
+        $content = $file['contents'];
         collect($moved)
             ->keys()
             ->each(
@@ -305,6 +303,8 @@ class PermalinksPlugin extends Plugin
                     $content = str_replace($from, $to, $content);
                 }
             );
-        $data['contents'] = $content;
+        $file['contents'] = $content;
+
+        return $file;
     }
 }
