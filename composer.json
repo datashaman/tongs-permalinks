@@ -1,35 +1,42 @@
 {
-    "name": "datashaman/tongs-permalinks",
-    "description": "Permalinks plugin for Tongs",
-    "type": "library",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Marlin Forbes",
-            "email": "marlinf@datashaman.com"
-        }
-    ],
-    "require": {
-    },
-    "autoload": {
-        "psr-4": {
-        "Datashaman\\Tongs\\Plugins\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-        "Datashaman\\Tongs\\Plugins\\Tests\\": "tests/"
-        }
-    },
-    "extra": {
-        "tongs": {
-            "plugins": {
-                "permalinks": "Datashaman\\Tongs\\Plugins\\PermalinksPlugin"
-            }
-        }
-    },
-    "require-dev": {
-        "datashaman/tongs": "0.3.*",
-        "phpunit/phpunit": "^8.5"
+  "name": "datashaman/tongs-permalinks",
+  "type": "library",
+  "description": "Permalinks plugin for Tongs",
+  "keywords": [
+    "laravel",
+    "ssg",
+    "static-site",
+    "static-site-generator",
+    "tongs",
+    "tongs-plugin"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Marlin Forbes",
+      "email": "marlinf@datashaman.com"
     }
+  ],
+  "require": {},
+  "require-dev": {
+    "datashaman/tongs": "0.3.*",
+    "phpunit/phpunit": "^8.5"
+  },
+  "extra": {
+    "tongs": {
+      "plugins": {
+        "permalinks": "Datashaman\\Tongs\\Plugins\\PermalinksPlugin"
+      }
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Datashaman\\Tongs\\Plugins\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Datashaman\\Tongs\\Plugins\\Tests\\": "tests/"
+    }
+  }
 }
