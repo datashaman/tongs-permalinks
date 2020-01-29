@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "52f4e4fb0eb0ccbba14cfa968940b424",
+    "content-hash": "991ae7a335440932fde46a9384b4a742",
     "packages": [],
     "packages-dev": [
         {
             "name": "datashaman/tongs",
-            "version": "0.3.2",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/datashaman/tongs.git",
-                "reference": "dfa1f300015d680977664aab5cd0dfb11951db58"
+                "reference": "c529fab8c057d903056f9ddb6691c5209cf01aba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/datashaman/tongs/zipball/dfa1f300015d680977664aab5cd0dfb11951db58",
-                "reference": "dfa1f300015d680977664aab5cd0dfb11951db58",
+                "url": "https://api.github.com/repos/datashaman/tongs/zipball/c529fab8c057d903056f9ddb6691c5209cf01aba",
+                "reference": "c529fab8c057d903056f9ddb6691c5209cf01aba",
                 "shasum": ""
             },
             "require": {
@@ -47,8 +47,8 @@
                         "collections": "Datashaman\\Tongs\\Plugins\\CollectionsPlugin",
                         "drafts": "Datashaman\\Tongs\\Plugins\\DraftsPlugin",
                         "markdown": "Datashaman\\Tongs\\Plugins\\MarkdownPlugin",
-                        "sass": "Datashaman\\Tongs\\Plugins\\SassPlugin",
                         "serve": "Datashaman\\Tongs\\Plugins\\ServePlugin",
+                        "tap": "Datashaman\\Tongs\\Plugins\\TapPlugin",
                         "views": "Datashaman\\Tongs\\Plugins\\ViewsPlugin"
                     }
                 }
@@ -73,9 +73,12 @@
                 "cli",
                 "laravel",
                 "metalsmith",
-                "static site generator"
+                "ssg",
+                "static-site",
+                "static-site-generator",
+                "tongs"
             ],
-            "time": "2020-01-26T08:58:15+00:00"
+            "time": "2020-01-29T09:12:46+00:00"
         },
         {
             "name": "doctrine/inflector",

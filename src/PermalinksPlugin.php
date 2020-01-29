@@ -9,7 +9,6 @@ use DateTime;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 
 class PermalinksPlugin extends Plugin
@@ -51,79 +50,68 @@ class PermalinksPlugin extends Plugin
         $this->dupes = [];
     }
 
-    public function handle(Collection $files, callable $next): Collection
+    public function handle(array $files, callable $next): array
     {
-        $files = $files
-            ->mapWithKeys(
-                function ($file, $path) use (&$files) {
-                    if (File::extension($path) !== 'html') {
-                        return [
-                            $path => $file,
-                        ];
-                    }
+        $ret = [];
 
-                    if (Arr::get($file, 'permalink') === false) {
-                        return [
-                            $path => $file,
-                        ];
-                    }
+        foreach ($files as $path => $file) {
+            if (
+                File::extension($path) === 'html'
+                && Arr::get($file, 'permalink') !== false
+            ) {
+                $linkset = array_merge(
+                    $this->findLinkset($file),
+                    $this->defaultLinkset
+                );
 
-                    $linkset = array_merge(
-                        $this->findLinkset($file),
-                        $this->defaultLinkset
-                    );
+                $ppath = $this->replace(
+                    $linkset['pattern'],
+                    $file,
+                    $linkset
+                ) ?: $this->resolve($path);
 
-                    $ppath = $this->replace(
-                        $linkset['pattern'],
-                        $file,
-                        $linkset
-                    ) ?: $this->resolve($path);
+                $fam = null;
 
-                    $fam = null;
+                switch ($linkset['relative']) {
+                case true:
+                    $fam = $this->family($path, $files);
+                    break;
+                case 'folder':
+                    $fam = $this->folder($path, $files);
+                    break;
+                }
 
-                    switch ($linkset['relative']) {
-                    case true:
-                        $fam = $this->family($path, $files->all());
-                        break;
-                    case 'folder':
-                        $fam = $this->folder($path, $files->all());
-                        break;
-                    }
+                if (isset($file['permalink'])) {
+                    $ppath = $file['permalink'];
+                }
 
-                    if (
-                        Arr::has($file, 'permalink')
-                        && $file['permalink'] !== false
-                    ) {
-                        $ppath = $file['permalink'];
-                    }
+                $out = $this->makeUnique()($ppath, $files, $path, $this->options);
 
-                    $out = $this->makeUnique()($ppath, $files, $path, $this->options);
+                $moved = [];
 
-                    $moved = [];
-
-                    if ($fam) {
-                        foreach ($fam as $key => $famData) {
-                            if (Arr::has($fam, $key)) {
-                                $rel = implode(DIRECTORY_SEPARATOR, [$ppath, $key]);
-                                $this->dupes[$rel] = $famData;
-                                $moved[$key] = $rel;
-                            }
+                if ($fam) {
+                    foreach ($fam as $key => $famData) {
+                        if (Arr::has($fam, $key)) {
+                            $rel = implode(DIRECTORY_SEPARATOR, [$ppath, $key]);
+                            $this->dupes[$rel] = $famData;
+                            $moved[$key] = $rel;
                         }
                     }
-
-                    $file['path'] = $ppath === './'
-                        ? '/'
-                        : '/' . str_replace('\\', '/', $ppath);
-
-                    $file = $this->relink($file, $moved);
-
-                    return [
-                        $out => $file,
-                    ];
                 }
-            );
 
-        return $next($files);
+                $file['path'] = $ppath === './'
+                    ? '/'
+                    : '/' . str_replace('\\', '/', $ppath);
+
+                $file = $this->relink($file, $moved);
+            } else {
+                $out = $path;
+            }
+
+            $ret[$out] = $file;
+        }
+
+        return $next($ret);
     }
 
     protected function normalize($options): array
